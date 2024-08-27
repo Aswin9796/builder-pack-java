@@ -1,0 +1,16 @@
+node('node-1'){
+    stage("clone"){
+        git branch: 'main', url: 'https://github.com/Aswin9796/builder-pack-java.git'
+    }
+    /*stage("docker-image"){
+        sh "docker build -t aswincontainer/builder-java ."
+    }*/
+    stage("docker hub"){
+        sh "docker login -u aswincontainer -p Aswin9796_"
+        sh "docker pull aswincontainer/builder-java"
+    }
+    stage("docker container"){
+        sh "docker run -d --name java-app -p 8081:8080 aswincontainer/builder-java"
+    }
+    
+}
